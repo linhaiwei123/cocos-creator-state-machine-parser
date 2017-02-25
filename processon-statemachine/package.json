@@ -1,0 +1,19 @@
+{
+  "name": "processon-statemachine",
+  "version": "0.0.1",
+  "description": "将processOn导出的*.pos文件解析为状态机参数",
+  "author": "Cocos Creator",
+  "main": "main.js",
+  "main-menu": {
+    "pos-fsm/open": {
+      "message": "processon-statemachine:open"
+    }
+  },
+  "panel": {
+    "main": "panel/index.js",
+    "type": "dockable",
+    "title": "processon-statemachine",
+    "width": 400,
+    "height": 300
+  }
+}
