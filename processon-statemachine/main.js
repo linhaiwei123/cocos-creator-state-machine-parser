@@ -45,6 +45,10 @@ module.exports = {
                        fsm_items_string.substring(1,fsm_items_string.length - 1).replace(/},/g,"},\n") + "\n" + 
                        "]\n" +
                     "});\n";
+      
+      //extend enum StateMachine.ASYNC in 
+      content += "fsm.ASYNC = StateMachine.ASYNC;\n"
+
 
       
       // # cause the fsm's eventsystem is not a register but just a callback
