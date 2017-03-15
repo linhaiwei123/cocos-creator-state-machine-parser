@@ -37,17 +37,24 @@ module.exports = {
       Editor.success("processon-statemachine: generating fsm.js");
       //generate file
       let content = "let StateMachine = require('state-machine');\n"+
-                    "let fsm = StateMachine.create({\n"+
+                    "let fsmData = {\n"+
                        "initial: 'nope',\n" + 
                        "//please select the enter-state here ↓\n" + 
                        "events: [\n" +
                        '//{"name":"startup","from":"nope","to":/*enter-state*/},\n' +  
                        fsm_items_string.substring(1,fsm_items_string.length - 1).replace(/},/g,"},\n") + "\n" + 
                        "]\n" +
-                    "});\n";
+                    "};\n";
+
+      //factory for the situation that many body use the same fsm template instend of same fsm
+      content += "let create = function(){\n"+
+                  "let fsm = StateMachine.create(fsmData);\n"+
+                  "fsm.ASYNC = StateMachine.ASYNC;\n"+
+                  "return fsm;\n"+
+                  "}\n";
       
       //extend enum StateMachine.ASYNC in 
-      content += "fsm.ASYNC = StateMachine.ASYNC;\n"
+      //content += "fsm.ASYNC = StateMachine.ASYNC;\n"
 
 
       
@@ -74,7 +81,7 @@ module.exports = {
       // content += "fsm.onafterevent = function(event,from,to,...arg){emitter.emit('after-event',{event:event,from:from,to:to,arg:arg})}\n";
 
       //content += "module.exports = {fsm,emitter}";
-      content += "module.exports = fsm";
+      content += "module.exports = {create}";
       Editor.success("processon-statemachine: sending fsm.js to assetdb");
       //Editor.assetdb.create( 'db://assets/fsm.js', content, function ( err, results ) {
         let fs_handler = require("fs");
